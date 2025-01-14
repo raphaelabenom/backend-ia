@@ -1,0 +1,14 @@
+services:
+  devcontainer:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    command: sleep infinity
+    volumes:
+      - ..:/home/nonroot/workspaces/backend-ia
+      - type: bind
+        source: ./.p10k.zsh
+        target: ./home/nonroot/.p10k.zsh
+      - type: bind
+        source: ./.zshrc
+        target: ./home/nonroot/.zshrc
