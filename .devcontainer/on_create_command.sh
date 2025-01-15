@@ -1,4 +1,4 @@
-FONT_NAME="Meslo"
+FONT_NAME="JetBrainsMono"
 
 echo "Instalando fontes..."
 
