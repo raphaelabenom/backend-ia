@@ -1,4 +1,4 @@
-FONT_NAME="JetBrainsMono"
+FONT_NAME="Meslo"
 
 echo "Instalando fontes..."
 
@@ -8,4 +8,5 @@ mkdir -p ~/.local/share/fonts \
   && find $HOME/.local/share/fonts/* -not -name "*.ttf" -delete
 
 echo "instalando temas..."
+
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
