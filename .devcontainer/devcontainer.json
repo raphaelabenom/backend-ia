@@ -18,7 +18,7 @@
 		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
 			"plugins": "zsh-syntax-highlighting zsh-autosuggestions",
 			"omzPlugins": "https://github.com/zsh-users/zsh-syntax-highlighting.git https://github.com/zsh-users/zsh-autosuggestions.git",
-			"usernamer": "nonroot"
+			"username": "nonroot"
 		}
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

@@ -5,7 +5,7 @@ WORKDIR /usr/local/lsd
 ENV LSD_VERSION 1.1.5
 ADD https://github.com/lsd-rs/lsd/releases/download/v${LSD_VERSION}/lsd-musl_${LSD_VERSION}_amd64.deb /usr/local/lsd/lsd.deb
 RUN dpkg -i ./lsd.deb
-RUN rm -rf ./lsd.deb
+RUN rm ./lsd.deb
 
 # USER
 ARG USERNAME=nonroot
