@@ -24,15 +24,15 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "docker --version",
+	"postCreateCommand": "${containerWorkspaceFolder}/.devcontainer/post_create_command.sh",
 	"onCreateCommand": "${containerWorkspaceFolder}/.devcontainer/on_create_command.sh",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
 			"settings": {
 				"terminal.integrated.defaultProfile.linux": "zsh",
-				"terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
-				"editor.fontFamily": "JetBrainsMono Nerd Font Mono"
+				"terminal.integrated.fontFamily": "JetBrains Mono",
+				"terminal.integrated.fontSize": 16
 			},
 			"codespaces": {
 				"openFiles": [

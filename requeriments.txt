@@ -1,0 +1,6 @@
+fastapi
+Django
+python-dotenv
+langchain-community
+boto3
+minio
