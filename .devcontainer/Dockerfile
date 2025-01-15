@@ -1,6 +1,13 @@
 FROM python:3.12
 
-#LSD
+# Instala dependências necessárias para fontes
+RUN apt-get update && apt-get install -y \
+  fontconfig \
+  wget \
+  unzip \
+  && rm -rf /var/lib/apt/lists/*
+
+# LSD
 WORKDIR /usr/local/lsd
 ENV LSD_VERSION 1.1.5
 ADD https://github.com/lsd-rs/lsd/releases/download/v${LSD_VERSION}/lsd-musl_${LSD_VERSION}_amd64.deb /usr/local/lsd/lsd.deb

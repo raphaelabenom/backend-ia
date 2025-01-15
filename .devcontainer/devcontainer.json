@@ -31,8 +31,8 @@
 		"vscode": {
 			"settings": {
 				"terminal.integrated.defaultProfile.linux": "zsh",
-				"terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
-				"editor.fontFamily": "JetBrainsMono Nerd Font"
+				"terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+				"editor.fontFamily": "JetBrainsMono Nerd Font Mono"
 			},
 			"codespaces": {
 				"openFiles": [
