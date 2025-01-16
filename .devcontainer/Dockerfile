@@ -1,15 +1,15 @@
 FROM python:3.12
 
-# Instala dependências necessárias para fontes
+# Install system dependencies and development tools
 RUN apt-get update && apt-get install -y \
-  fontconfig \
-  wget \
-  unzip \
-  && wget https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip \
-  && unzip JetBrainsMono-2.304.zip -d /usr/share/fonts/ \
-  && fc-cache -f -v \
-  && rm JetBrainsMono-2.304.zip \
-  && rm -rf /var/lib/apt/lists/*
+    build-essential \
+    curl \
+    fontconfig \
+    git \
+    unzip \
+    wget \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
 # LSD
 WORKDIR /usr/local/lsd
