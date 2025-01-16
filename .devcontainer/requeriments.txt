@@ -1,6 +1,10 @@
-fastapi
+fastapi[standard]
 Django
 python-dotenv
 langchain-community
 boto3
 minio
+ruff
+pytest 
+pytest-cov 
+taskipy
