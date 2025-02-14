@@ -1,7 +1,7 @@
 from langgraph.graph import StateGraph, END
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-from models.evaluateEssay import State
+from models.evaluate_essay import State
 from dotenv import load_dotenv
 import os
 import re
@@ -147,6 +147,7 @@ workflow.add_edge("calculate_final_score", "generate_corrections")
 workflow.add_edge("generate_corrections", END)
 
 workflow.set_entry_point("check_relevance")
+
 app = workflow.compile()
 
 # Função de avaliação

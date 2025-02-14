@@ -22,13 +22,3 @@ class EssayResponse(BaseModel):
     structure_score: float
     depth_score: float
     corrections: str
-
-class ExemplaryEssayRequest(BaseModel):
-    theme: str
-
-class ExemplaryEssayResponse(BaseModel):
-    essay: str
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str

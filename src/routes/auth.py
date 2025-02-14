@@ -1,22 +1,24 @@
 from utils.logger import logger
 from dotenv import load_dotenv
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, APIRouter
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from models.evaluateEssay import Token
-from extensions import app
+from models.token import Token
 from datetime import datetime, timedelta
 from jwt import PyJWTError
 import os
 import jwt
 
+# Configuração de autenticação
 load_dotenv()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-# Configuração de autenticação
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/v1/token")
+
+# Rota de autenticação
+router = APIRouter(tags=["Authentication"])
 
 # Função para criar token JWT
 def create_access_token(data: dict, expires_delta: timedelta = None):
@@ -52,7 +54,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
 
 # Rota para autenticação
-@app.post("/token", response_model=Token)
+@router.post("/v1/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     logger.info(f"Tentativa de login para usuário: {form_data.username}")
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)

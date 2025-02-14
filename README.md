@@ -188,29 +188,34 @@ POST http://127.0.0.1:8000/v1/generate_exemplary_essay
 #### Script para requisição
 
 ```python
+
 import requests
-import json
 
-base_url = "http://localhost:8000"
-token = "seu_token_de_acesso"
+# URL da API
+url = "URL DA API"
 
+# Cabeçalhos da requisição
 headers = {
-    "Authorization": f"Bearer {token}",
+    "accept": "application/json",
+    "Authorization": "Bearer Token", # Gerando na autenticação
     "Content-Type": "application/json"
 }
 
-# Avaliação de redação
-essay_text = "Texto da redação aqui..."
-response = requests.post(f"{base_url}/v1/grade_essay", 
-                         headers=headers, 
-                         data=json.dumps({"essay": essay_text}))
-print(response.json())
+# Corpo da requisição (payload)
+data = {
+    "theme": 10
+}
 
-# Gerar Redação Exemplar
-response = requests.post(f"{base_url}/v1/generate_exemplary_essay", 
-                         headers=headers, 
-                         data=json.dumps({"theme": theme_text}))
-print(response.json())
+# Fazendo a requisição POST
+response = requests.post(url, headers=headers, json=data)
+
+# Verificando a resposta
+if response.status_code == 200:
+    print("Requisição bem-sucedida!")
+    print("Resposta:", response.json())
+else:
+    print(f"Erro na requisição. Código de status: {response.status_code}")
+    print("Resposta:", response.text)
 
 ```
 
@@ -225,7 +230,7 @@ curl -X POST "http://localhost:8000/v1/grade_essay"
 -H "Authorization: Bearer seu_token_aqui" 
 -H "Content-Type: application/json" 
 -d '{
-  "essay":"Seu texto aqui"
+  "essay":"Redação aqui"
   }'
 
 curl -X POST http://localhost:8000/v1/generate_exemplary_essay \
