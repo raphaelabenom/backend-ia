@@ -226,10 +226,10 @@ curl -X POST "http://localhost:8000/v1/grade_essay" -H "accept: application/json
 ```
 
 ### Erros Comuns
-400: Requisição inválida (por exemplo, dados ausentes ou mal formatados)
-401: Não autorizado (token de acesso inválido ou ausente)
-422: Erro de validação (dados não correspondem ao modelo esperado)
-500: Erro interno do servidor
+- 400: Requisição inválida (por exemplo, dados ausentes ou mal formatados)
+- 401: Não autorizado (token de acesso inválido ou ausente)
+- 422: Erro de validação (dados não correspondem ao modelo esperado)
+- 500: Erro interno do servidor
 
 ### Logs
 
