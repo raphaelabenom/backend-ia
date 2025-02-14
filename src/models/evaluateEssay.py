@@ -1,6 +1,17 @@
 from pydantic import BaseModel
+from typing import TypedDict
 
 # Modelos Pydantic
+class State(TypedDict):
+    """Representa o estado do processo de avaliação da redação."""
+    essay: str
+    relevance_score: float
+    grammar_score: float
+    structure_score: float
+    depth_score: float
+    final_score: float
+    corrections: str
+
 class EssayRequest(BaseModel):
     essay: str
 
@@ -10,12 +21,13 @@ class EssayResponse(BaseModel):
     grammar_score: float
     structure_score: float
     depth_score: float
+    corrections: str
 
-class ImprovementRequest(BaseModel):
+class ExemplaryEssayRequest(BaseModel):
+    theme: str
+
+class ExemplaryEssayResponse(BaseModel):
     essay: str
-
-class ImprovementResponse(BaseModel):
-    suggestions: str
 
 class Token(BaseModel):
     access_token: str

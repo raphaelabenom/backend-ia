@@ -2,7 +2,9 @@
 
 ## Descrição
 
-Esta API oferece serviços para avaliação de redações e sugestão de melhorias utilizando inteligência artificial (OpenAI) integrada com Langgraph. Ela avalia diferentes aspectos de uma redação, como relevância, gramática, estrutura e profundidade, além de fornecer sugestões para melhorar a redação em termos de organização, coesão e coerência.
+Esta API oferece serviços para avaliação de redações e gerador de redação por tema utilizando inteligência artificial, OpenAI integrada com Langgraph. 
+- Ela avalia diferentes aspectos de uma redação, como relevância, gramática, estrutura e profundidade, além de fornecer feeback para melhorar a redação em termos de organização, coesão e coerência baseada na nota obtida.
+- Ela gera redação exemplo que é adequada para uso em contextos educacionais, como preparação para provas, revisão de conteúdos e inspiração para redações próprias.
 
 A API também conta com um sistema de autenticação JWT (JSON Web Token) para garantir que apenas usuários autenticados possam utilizar seus serviços.
 
@@ -13,6 +15,7 @@ A API também conta com um sistema de autenticação JWT (JSON Web Token) para g
 - **OpenAI** para análise de textos e geração de pontuações.
 - **Langgraph** para orquestração de workflows com IA.
 - **JWT** para autenticação de usuários.
+- **Loguru** para logs
 
 ## Requisitos
 
@@ -116,22 +119,19 @@ Resposta:
   "grammar_score": 9.0,
   "structure_score": 8.0,
   "depth_score": 8.5
+  "corrections": ""
 }
 
 ```
 
-### 3. Sugestões de Melhoria
+### 3. Gerador de redação
 
-Este endpoint fornece sugestões para melhorar a estrutura da redação com base em sua análise.
-
-Endpoint: /v1/suggest_improvements
-- Método: POST
-- Descrição: Recebe uma redação e retorna sugestões construtivas para melhorar sua estrutura.
-Corpo:
+O endpoint /v1/generate_exemplary_essay gera uma redação exemplar com base em um tema fornecido. 
+A redação gerada segue as diretrizes de qualidade, organização e coesão, e é adequada para uso educacional e de referência.
 
 ```json
 {
-  "essay": "Texto da redação a ser analisada"
+  "theme": "Os impactos da tecnologia na educação"
 }
 
 ```
@@ -143,7 +143,7 @@ Resposta:
 
 ```json
 {
-  "suggestions": "Sugestões detalhadas para melhorar a redação"
+   "essay": "Redação exemplo"
 }
 
 ```
@@ -151,10 +151,6 @@ Resposta:
 ## Swagger UI
 A API é documentada automaticamente com o Swagger. Você pode acessar a documentação interativa do Swagger UI na seguinte URL após executar a aplicação:
 
-```bash
-POST http://127.0.0.1:8000/token
-
-```
 1. Obtenção do Token
 Primeiramente, você deve autenticar-se usando o endpoint /token com o nome de usuário e a senha. Isso retornará um token JWT.
 
@@ -170,11 +166,11 @@ Agora, use o token obtido para autenticar-se e enviar uma redação para avalia�
 POST http://127.0.0.1:8000/v1/grade_essay
 
 ```
-3. Obter Sugestões de Melhoria
-Se você deseja sugestões para melhorar a redação, envie a redação para o endpoint de melhorias:
+3. Gerar Redação
+Se você deseja gerar uma redação a partir de um tema específicio, envie o tema da redação para o endpoint:
 
 ```bash
-POST http://127.0.0.1:8000/v1/suggest_improvements
+POST http://127.0.0.1:8000/v1/generate_exemplary_essay
 
 ```
 
@@ -210,18 +206,34 @@ response = requests.post(f"{base_url}/v1/grade_essay",
                          data=json.dumps({"essay": essay_text}))
 print(response.json())
 
-# Sugestões de melhoria
-response = requests.post(f"{base_url}/v1/suggest_improvements", 
+# Gerar Redação Exemplar
+response = requests.post(f"{base_url}/v1/generate_exemplary_essay", 
                          headers=headers, 
-                         data=json.dumps({"essay": essay_text}))
+                         data=json.dumps({"theme": theme_text}))
 print(response.json())
 
 ```
 
 ```bash
-curl -X POST "http://localhost:8000/token" -H "accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" -d "username=testuser&password=testpassword"
+curl -X POST "http://localhost:8000/token" 
+-H "accept: application/json" 
+-H "Content-Type: application/x-www-form-urlencoded" 
+-d "username=testuser&password=testpassword"
 
-curl -X POST "http://localhost:8000/v1/grade_essay" -H "accept: application/json" -H "Authorization: Bearer seu_token_aqui" -H "Content-Type: application/json" -d '{"essay":"Seu texto aqui"}'
+curl -X POST "http://localhost:8000/v1/grade_essay" 
+-H "accept: application/json" 
+-H "Authorization: Bearer seu_token_aqui" 
+-H "Content-Type: application/json" 
+-d '{
+  "essay":"Seu texto aqui"
+  }'
+
+curl -X POST http://localhost:8000/v1/generate_exemplary_essay \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer <token>" \
+-d '{
+  "theme": "Os impactos da tecnologia na educação"
+}'
 
 ```
 
@@ -236,3 +248,7 @@ curl -X POST "http://localhost:8000/v1/grade_essay" -H "accept: application/json
 A API utiliza loguru para registrar informações importantes. Verifique os logs regularmente para monitorar o desempenho e identificar possíveis problemas.
 
 Esta documentação fornece uma visão geral abrangente da API de Avaliação de Redações, cobrindo desde a instalação até o seu uso.
+
+## Extensões Futuras
+Diversificação de Temas : Expandir o serviço para suportar uma variedade maior de temas e níveis de dificuldade.
+Customização : Permitir que os usuários especifiquem o número de palavras ou o nível de complexidade da redação.
